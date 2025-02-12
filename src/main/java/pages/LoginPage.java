@@ -16,8 +16,6 @@ public class LoginPage extends BasePage {
     public static final By CROSS_BUTTON_IN_PASSWORD_FIELD = By.xpath("(//*[@fill=\"currentColor\"])[2]");
     public static final By LOGIN_TITLE = By.xpath("//*[@class=\"login_logo\"]");
 
-
-
     public LoginPage(WebDriver driver) {
         super(driver);
     }
@@ -37,8 +35,7 @@ public class LoginPage extends BasePage {
     }
 
     public List<WebElement> getErrorMessages() {
-        List<WebElement> errorMessages = driver.findElements(ERROR_MESSAGE);
-        return errorMessages;
+        return driver.findElements(ERROR_MESSAGE);
     }
 
     public void clickOnCrossInUsernameField() {

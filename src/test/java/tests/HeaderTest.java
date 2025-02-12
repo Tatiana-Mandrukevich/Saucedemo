@@ -41,7 +41,7 @@ public class HeaderTest extends BaseTest {
     public void checkCountOfAddedProductsOnCart() {
         loginPage.openPage(LOGIN_PAGE_URL);
         loginPage.login(USERNAME, PASSWORD);
-        productsPage.clickAddToCartButtonForProduct(SAUCE_LABS_BACKPACK);
-        Assert.assertEquals(headerPage.getCountOfAddedProducts(), productsPage.getRemoveButtons().size());
+        productsPage.addProductToCart(SAUCE_LABS_BACKPACK);
+        Assert.assertEquals(headerPage.getCountOfAddedProducts(), 1);
     }
 }

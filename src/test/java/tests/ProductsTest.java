@@ -8,16 +8,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class ProductsTest extends BaseTest {
-    //loginPage.openPage()
-    //loginPage.login(username, password)
-    //productPage.addToCart("Product Name")
-    //cartPage.openPage()
-    //cartPage.getQuantity("Product Name")
-    //cartPage.getPrice("Product Name")
-    //Assertions
 
     @Test(description = "Check page title")
-    public void checkAppTitle() {
+    public void checkPageTitle() {
         loginPage.openPage(LOGIN_PAGE_URL);
         loginPage.login(USERNAME, PASSWORD);
         Assert.assertEquals(productsPage.getPageTitleText(), "Products");
@@ -27,11 +20,11 @@ public class ProductsTest extends BaseTest {
     public void checkProductsCount() {
         loginPage.openPage(LOGIN_PAGE_URL);
         loginPage.login(USERNAME, PASSWORD);
-        Assert.assertEquals(productsPage.getProducts().size(), 6);
+        Assert.assertEquals(productsPage.getProductsSize(), 6);
     }
 
-    @Test(description = "Check a product name for each product ")
-    public void checkProductNames() {
+    @Test(description = "Check a product name for each product")
+    public void checkProductsNames() {
         loginPage.openPage(LOGIN_PAGE_URL);
         loginPage.login(USERNAME, PASSWORD);
         List<String> expectedProductNames = new ArrayList<>();
@@ -42,7 +35,7 @@ public class ProductsTest extends BaseTest {
         expectedProductNames.add(SAUCE_LABS_ONESIE);
         expectedProductNames.add(TEST_ALL_THE_THINGS_T_SHIRT_RED);
         Collections.sort(expectedProductNames);
-        Assert.assertEquals(productsPage.getActualProductNames(), expectedProductNames);
+        Assert.assertEquals(productsPage.getActualProductsNames(), expectedProductNames);
     }
 
     @Test(description = "Check a product description for each product")
@@ -73,21 +66,28 @@ public class ProductsTest extends BaseTest {
     public void checkProductPicturesCount() {
         loginPage.openPage(LOGIN_PAGE_URL);
         loginPage.login(USERNAME, PASSWORD);
-        Assert.assertEquals(productsPage.getProducts().size(), productsPage.getProductPictures().size());
+        Assert.assertEquals(productsPage.getProductsSize(), productsPage.getProductPictures().size());
     }
 
     @Test(description = "Check that \"Add to cart\" button is displayed for each product")
     public void checkAddToCartButtonsCount() {
         loginPage.openPage(LOGIN_PAGE_URL);
         loginPage.login(USERNAME, PASSWORD);
-        Assert.assertEquals(productsPage.getProducts().size(), productsPage.getAddToCartButtons().size());
+        Assert.assertEquals(productsPage.getProductsSize(), productsPage.getAddToCartButtons().size());
+    }
+
+    @Test
+    public void isAddToCartButtonDisplayedTest() {
+        loginPage.openPage(LOGIN_PAGE_URL);
+        loginPage.login(USERNAME, PASSWORD);
+        Assert.assertTrue(productsPage.isAddToCartButtonDisplayedForProduct(SAUCE_LABS_BOLT_T_SHIRT));
     }
 
     @Test(description = "Adding a product to the cart: check that the \"Add to cart\" button is not displayed for the added product")
     public void checkAddToCartButtonIsNotDisplayedForAddedProduct() {
         loginPage.openPage(LOGIN_PAGE_URL);
         loginPage.login(USERNAME, PASSWORD);
-        productsPage.clickAddToCartButtonForProduct(SAUCE_LABS_BIKE_LIGHT);
+        productsPage.addProductToCart(SAUCE_LABS_BIKE_LIGHT);
         Assert.assertFalse(productsPage.isAddToCartButtonDisplayedForProduct(SAUCE_LABS_BIKE_LIGHT));
     }
 
@@ -95,7 +95,7 @@ public class ProductsTest extends BaseTest {
     public void checkRemoveButtonIsDisplayedForAddedProduct() {
         loginPage.openPage(LOGIN_PAGE_URL);
         loginPage.login(USERNAME, PASSWORD);
-        productsPage.clickAddToCartButtonForProduct(SAUCE_LABS_BIKE_LIGHT);
+        productsPage.addProductToCart(SAUCE_LABS_BIKE_LIGHT);
         Assert.assertTrue(productsPage.isRemoveButtonDisplayedForProduct(SAUCE_LABS_BIKE_LIGHT));
     }
 }

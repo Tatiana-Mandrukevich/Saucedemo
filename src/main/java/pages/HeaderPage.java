@@ -2,9 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
 
 public class HeaderPage extends BasePage {
     public static final By APP_TITLE = By.xpath("//*[@class=\"app_logo\"]");
@@ -25,13 +22,7 @@ public class HeaderPage extends BasePage {
     }
 
     public boolean isMenuOpen() {
-        List<WebElement> indicatorsThatMenuIsOpen = driver.findElements(INDICATION_THAT_MENU_IS_OPEN);
-        if (indicatorsThatMenuIsOpen.isEmpty()) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return driver.findElements(INDICATION_THAT_MENU_IS_OPEN).isEmpty();
     }
 
     public void clickOnCrossOnMenu() {
@@ -44,7 +35,6 @@ public class HeaderPage extends BasePage {
 
     public Integer getCountOfAddedProducts() {
         String countOfAddedProductsStr = driver.findElement(COUNT_OF_ADDED_PRODUCTS_ON_CART_BUTTON).getText();
-        Integer countOfAddedProducts = Integer.valueOf(countOfAddedProductsStr);
-        return countOfAddedProducts;
+        return Integer.valueOf(countOfAddedProductsStr);
     }
 }
