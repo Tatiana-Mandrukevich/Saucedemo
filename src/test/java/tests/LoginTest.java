@@ -35,4 +35,41 @@ public class LoginTest extends BaseTest {
         loginPage.login("efwefwe", "efwfwe");
         Assert.assertEquals(loginPage.getErrorMassageText(), INCORRECT_DATA_IN_FIELDS);
     }
+
+    @Test(description = "Login on site with correct data in fields")
+    public void loginWithCorrectFieldsTest() {
+        loginPage.openPage(LOGIN_PAGE_URL);
+        loginPage.login(USERNAME, PASSWORD);
+        Assert.assertEquals(loginPage.getCurrentUrl(), PRODUCT_PAGE_URL);
+    }
+
+    @Test(description = "Close error message by clicking on the cross")
+    public void closeErrorMessage() {
+        loginPage.openPage(LOGIN_PAGE_URL);
+        loginPage.login("efwefwe", "efwfwe");
+        loginPage.clickOnCrossInErrorMessage();
+        Assert.assertTrue(loginPage.getErrorMessages().isEmpty());
+    }
+
+    @Test(description = "Clearing the field username by clicking on the cross")
+    public void clearUsernameFieldByCross() {
+        loginPage.openPage(LOGIN_PAGE_URL);
+        loginPage.login("efwefwe", "efwfwe");
+        loginPage.clickOnCrossInUsernameField();
+        Assert.assertEquals(loginPage.getUsernameText(), "");
+    }
+
+    @Test(description = "Clearing the field password by clicking on the cross")
+    public void clearPasswordFieldByCross() {
+        loginPage.openPage(LOGIN_PAGE_URL);
+        loginPage.login("efwefwe", "efwfwe");
+        loginPage.clickOnCrossInPasswordField();
+        Assert.assertEquals(loginPage.getPasswordText(), "");
+    }
+
+    @Test(description = "Check login title")
+    public void checkLoginTitle() {
+        loginPage.openPage(LOGIN_PAGE_URL);
+        Assert.assertEquals(loginPage.getLoginTitleText(), "Swag Labs");
+    }
 }
