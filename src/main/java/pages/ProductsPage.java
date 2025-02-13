@@ -16,7 +16,6 @@ public class ProductsPage extends HeaderPage {
     public static final String PRODUCT_DESCRIPTION = PRODUCT_ITEM + "//*[@class=\"inventory_item_desc\"]";
     public static final By ADD_TO_CART_BUTTONS = By.xpath("//*[@class=\"btn btn_primary btn_small btn_inventory \" and contains(text(), \"Add to cart\")]");
     public static final String ADD_PRODUCT_TO_CART_BUTTON = PRODUCT_ITEM + "//button[contains(text(),'Add')]";
-    public static final By REMOVE_BUTTONS = By.xpath("//*[@class=\"btn btn_secondary btn_small btn_inventory \" and contains(text(), \"Remove\")]");
     public static final String REMOVE_PRODUCT_FROM_CART_BUTTON = PRODUCT_ITEM + "//button[contains(text(),'Remove')]";
     public static final String PRODUCT_PRICE = PRODUCT_ITEM + "//*[@class=\"inventory_item_price\"]";
     public static final By PRODUCT_PICTURE = By.xpath("//*[@class=\"inventory_item\"]//div[@class=\"inventory_item_img\"]");
@@ -54,10 +53,6 @@ public class ProductsPage extends HeaderPage {
 
     public List<WebElement> getAddToCartButtons() {
         return driver.findElements(ADD_TO_CART_BUTTONS);
-    }
-
-    public List<WebElement> getRemoveButtons() {
-        return driver.findElements(REMOVE_BUTTONS);
     }
 
     public void addProductToCart(String productName) {
