@@ -1,6 +1,8 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
@@ -36,10 +38,21 @@ public class LoginTest extends BaseTest {
         Assert.assertEquals(loginPage.getErrorMassageText(), INCORRECT_DATA_IN_FIELDS);
     }
 
-    @Test(description = "Login on site with correct data in fields")
-    public void loginWithCorrectFieldsTest() {
+/*    @Test(description = "Login on site with correct data in fields")
+    public void successLoginTest() {
         loginPage.openPage(LOGIN_PAGE_URL);
-        loginPage.login(USERNAME, PASSWORD);
+        loginPage.login(
+                System.getProperty("username"),
+                System.getProperty("password"));
+        Assert.assertEquals(loginPage.getCurrentUrl(), PRODUCT_PAGE_URL);
+    }*/
+
+    @Parameters({"username", "password"})
+    @Test(description = "Login on site with correct data in fields")
+    public void successLoginTest(@Optional("standard_user") String user,
+                                 @Optional("secret_sauce") String pass) {
+        loginPage.openPage(LOGIN_PAGE_URL);
+        loginPage.login(user, pass);
         Assert.assertEquals(loginPage.getCurrentUrl(), PRODUCT_PAGE_URL);
     }
 
