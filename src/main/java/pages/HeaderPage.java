@@ -22,7 +22,7 @@ public class HeaderPage extends BasePage {
     }
 
     public boolean isMenuOpen() {
-        return driver.findElements(INDICATION_THAT_MENU_IS_OPEN).isEmpty();
+        return !driver.findElements(INDICATION_THAT_MENU_IS_OPEN).isEmpty();
     }
 
     public void clickOnCrossOnMenu() {
