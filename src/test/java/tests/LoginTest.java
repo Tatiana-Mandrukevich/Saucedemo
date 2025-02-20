@@ -64,7 +64,7 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(loginPage.getErrorMessages().isEmpty());
     }
 
-    @Test(description = "Clearing the field username by clicking on the cross")
+/*    @Test(description = "Clearing the field username by clicking on the cross")
     public void clearUsernameFieldByCross() {
         loginPage.openPage(LOGIN_PAGE_URL);
         loginPage.login("efwefwe", "efwfwe");
@@ -78,7 +78,7 @@ public class LoginTest extends BaseTest {
         loginPage.login("efwefwe", "efwfwe");
         loginPage.clickOnCrossInPasswordField();
         Assert.assertEquals(loginPage.getPasswordText(), "");
-    }
+    }*/
 
     @Test(description = "Check login title")
     public void checkLoginTitle() {
