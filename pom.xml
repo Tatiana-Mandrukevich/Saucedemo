@@ -16,6 +16,7 @@
         <testng.version>7.11.0</testng.version>
         <webdrivermanager.version>5.9.3</webdrivermanager.version>
         <hamcrest.version>3.0</hamcrest.version>
+        <lombok.version>1.18.36</lombok.version>
         <suiteXmlFile>sauceDemoAllSuites.xml</suiteXmlFile>
     </properties>
 
@@ -46,7 +47,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
-            <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
@@ -59,6 +59,12 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>${hamcrest.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
 </project>

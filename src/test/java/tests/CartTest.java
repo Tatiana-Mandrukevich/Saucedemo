@@ -20,19 +20,36 @@ public class CartTest extends BaseTest {
 
     @Test(dataProvider = "products")
     public void checkProductPriceInCartTest(String productName, String price) {
-        loginPage.openPage(LOGIN_PAGE_URL);
-        loginPage.login(USERNAME, PASSWORD);
-        productsPage.addProductToCart(productName);
-        cartPage.openPage(CART_PAGE_URL);
+        loginPage
+                .openPage(LOGIN_PAGE_URL);
+        loginPage
+                .waitForPageOpened()
+                .login(USERNAME, PASSWORD)
+                .addProductToCart(productName);
+        cartPage.openCartPage(CART_PAGE_URL);
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }
 
     @Test(retryAnalyzer = Retry.class)
     public void checkQuantityTest() {
-        loginPage.openPage(LOGIN_PAGE_URL);
-        loginPage.login(USERNAME, PASSWORD);
-        productsPage.addProductsToCart(SAUCE_LABS_BOLT_T_SHIRT, SAUCE_LABS_BACKPACK);;
+        loginPage
+                .openPage(LOGIN_PAGE_URL);
+        loginPage
+                .login(USERNAME, PASSWORD)
+                .addProductsToCart(SAUCE_LABS_BOLT_T_SHIRT, SAUCE_LABS_BACKPACK);
         cartPage.openPage(CART_PAGE_URL);
         Assert.assertEquals(cartPage.getProductQuantity(), 2);
+    }
+
+    @Test(dataProvider = "products")
+    public void addProductToCartTest(String productName, String price){
+        loginPage
+                .openPage(LOGIN_PAGE_URL);
+        loginPage
+                .waitForPageOpened()
+                .login(USERNAME, PASSWORD)
+                .addProductToCart(productName);
+        cartPage.openPage(CART_PAGE_URL);
+        Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }
 }

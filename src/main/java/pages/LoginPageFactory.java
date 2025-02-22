@@ -1,54 +1,69 @@
 package pages;
 
-import entity.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
 
-public class LoginPage extends BasePage {
-    public static final By USERNAME_INPUT = By.id("user-name");
-    public static final By PASSWORD_INPUT = By.name("password");
-    public static final By LOGIN_BUTTON = By.className("submit-button");
-    public static final By ERROR_MESSAGE = By.xpath("//*[@data-test='error']");
+public class LoginPageFactory extends BasePage {
+
+    @FindBy(id = "user-name")
+    WebElement usernameInput;
+
+    @FindBy(name = "password")
+    WebElement passwordInput;
+
+    @FindBy(className = "submit-button")
+    WebElement loginButton;
+
+    public WebElement getAddButton() {
+        return addButton;
+    }
+
+    public WebElement getDeleteButton() {
+        return deleteButton;
+    }
+
+    @FindBy(xpath = "//*[@data-test='error']")
+    WebElement errorMessage;
+
+    @FindBy(xpath = "//button[contains(.,'Add')]")
+    WebElement addButton;
+
+    @FindBy(xpath = "//button[contains(.,'Delete')]")
+    WebElement deleteButton;
+
     public static final By ERROR_BUTTON = By.className("error-button");
     public static final By CROSS_BUTTON_IN_USERNAME_FIELD = By.xpath("(//*[@fill=\"currentColor\"])[1]");
     public static final By CROSS_BUTTON_IN_PASSWORD_FIELD = By.xpath("(//*[@fill=\"currentColor\"])[2]");
     public static final By LOGIN_TITLE = By.xpath("//*[@class=\"login_logo\"]");
 
-    public LoginPage(WebDriver driver) {
+    public LoginPageFactory(WebDriver driver) {
         super(driver);
     }
 
-    public ProductsPage login(User user) {
-        driver.findElement(USERNAME_INPUT).sendKeys(user.getUsername());
-        driver.findElement(PASSWORD_INPUT).sendKeys(user.getPassword());
-        driver.findElement(LOGIN_BUTTON).click();
-        return new ProductsPage(driver);
-    }
-
-    public ProductsPage login(String username, String password) {
-        driver.findElement(USERNAME_INPUT).sendKeys(username);
-        driver.findElement(PASSWORD_INPUT).sendKeys(password);
-        driver.findElement(LOGIN_BUTTON).click();
-        return new ProductsPage(driver);
+    public void login(String username, String password) {
+        usernameInput.sendKeys(username);
+        passwordInput.sendKeys(password);
+        loginButton.click();
     }
 
     public String getErrorMassageText() {
-        return driver.findElement(ERROR_MESSAGE).getText();
+        return errorMessage.getText();
     }
 
     public void clickOnCrossInErrorMessage() {
         driver.findElement(ERROR_BUTTON).click();
     }
 
-    public List<WebElement> getErrorMessages() {
+/*    public List<WebElement> getErrorMessages() {
         return driver.findElements(ERROR_MESSAGE);
-    }
+    }*/
 
     public void clickOnCrossInUsernameField() {
         driver.findElement(CROSS_BUTTON_IN_USERNAME_FIELD).click();
@@ -59,18 +74,17 @@ public class LoginPage extends BasePage {
     }
 
     public String getUsernameText() {
-        return driver.findElement(USERNAME_INPUT).getAttribute("value");
+        return usernameInput.getAttribute("value");
     }
 
     public String getPasswordText() {
-        return driver.findElement(PASSWORD_INPUT).getAttribute("value");
+        return passwordInput.getAttribute("value");
     }
 
     public String getLoginTitleText() { return driver.findElement(LOGIN_TITLE).getText(); }
 
-    public LoginPage waitForPageOpened() {
+    public void waitForPageOpened() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
-        return this;
+        wait.until(ExpectedConditions.visibilityOf(loginButton));
     }
 }

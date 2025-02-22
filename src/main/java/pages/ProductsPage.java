@@ -55,8 +55,9 @@ public class ProductsPage extends HeaderPage {
         return driver.findElements(ADD_TO_CART_BUTTONS);
     }
 
-    public void addProductToCart(String productName) {
+    public ProductsPage addProductToCart(String productName) {
         driver.findElement(By.xpath(String.format(ADD_PRODUCT_TO_CART_BUTTON, productName))).click();
+        return this;
     }
 
     public boolean isAddToCartButtonDisplayedForProduct(String productName) {
@@ -69,9 +70,10 @@ public class ProductsPage extends HeaderPage {
         return !removeButtons.isEmpty();
     }
 
-    public void addProductsToCart(String... productNames) {
+    public ProductsPage addProductsToCart(String... productNames) {
         for (String productName : productNames) {
             driver.findElement(By.xpath(String.format(ADD_PRODUCT_TO_CART_BUTTON, productName))).click();
         }
+        return this;
     }
 }

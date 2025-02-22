@@ -8,10 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
-import pages.CartPage;
-import pages.HeaderPage;
-import pages.LoginPage;
-import pages.ProductsPage;
+import pages.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +19,11 @@ public class BaseTest implements IConstants, ITestConstants {
     HeaderPage headerPage;
     ProductsPage productsPage;
     CartPage cartPage;
+    LoginPageFactory loginPageFactory;
 
+    /**
+     * This is initialization of pages
+     */
     @BeforeMethod
     public void initTest() {
         WebDriverManager.chromedriver().setup();
@@ -37,6 +38,7 @@ public class BaseTest implements IConstants, ITestConstants {
         headerPage = new HeaderPage(driver);
         productsPage = new ProductsPage(driver);
         cartPage = new CartPage(driver);
+        loginPageFactory = new LoginPageFactory(driver);
     }
 
     @AfterMethod
