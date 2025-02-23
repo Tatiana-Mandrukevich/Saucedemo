@@ -12,10 +12,18 @@ public abstract class BasePage implements IConstants {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * This is the opening page by URL.
+     * @param url - the URL of the page.
+     */
     public void openPage(String url) {
         driver.get(url);
     }
 
+    /**
+     * This is getting the current URL.
+     * @return - the current URL.
+     */
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }

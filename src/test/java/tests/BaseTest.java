@@ -9,6 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import pages.*;
+import waiters.Waiter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +23,8 @@ public class BaseTest implements IConstants, ITestConstants {
     LoginPageFactory loginPageFactory;
 
     /**
-     * This is initialization of pages
+     * This is the initialization of the test.
+     * It is setting up the WebDriver, maximizing the window, setting the implicit wait.
      */
     @BeforeMethod
     public void initTest() {
@@ -33,6 +35,9 @@ public class BaseTest implements IConstants, ITestConstants {
         initPages();
     }
 
+    /**
+     * This is the initialization of pages.
+     */
     public void initPages() {
         loginPage = new LoginPage(driver);
         headerPage = new HeaderPage(driver);
@@ -41,6 +46,9 @@ public class BaseTest implements IConstants, ITestConstants {
         loginPageFactory = new LoginPageFactory(driver);
     }
 
+    /**
+     * It is quitting the WebDriver.
+     */
     @AfterMethod
     public void endTest() {
         driver.quit();

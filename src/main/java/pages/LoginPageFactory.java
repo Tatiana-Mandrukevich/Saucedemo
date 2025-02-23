@@ -1,9 +1,9 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,16 +21,13 @@ public class LoginPageFactory extends BasePage {
     @FindBy(className = "submit-button")
     WebElement loginButton;
 
-    public WebElement getAddButton() {
-        return addButton;
-    }
-
-    public WebElement getDeleteButton() {
-        return deleteButton;
-    }
-
     @FindBy(xpath = "//*[@data-test='error']")
     WebElement errorMessage;
+
+    @FindBys({
+            @FindBy(xpath = "//*[@data-test='error']")
+    })
+    List<WebElement> errorMessages;
 
     @FindBy(xpath = "//button[contains(.,'Add')]")
     WebElement addButton;
@@ -38,10 +35,25 @@ public class LoginPageFactory extends BasePage {
     @FindBy(xpath = "//button[contains(.,'Delete')]")
     WebElement deleteButton;
 
-    public static final By ERROR_BUTTON = By.className("error-button");
-    public static final By CROSS_BUTTON_IN_USERNAME_FIELD = By.xpath("(//*[@fill=\"currentColor\"])[1]");
-    public static final By CROSS_BUTTON_IN_PASSWORD_FIELD = By.xpath("(//*[@fill=\"currentColor\"])[2]");
-    public static final By LOGIN_TITLE = By.xpath("//*[@class=\"login_logo\"]");
+    @FindBy(className = "error-button")
+    WebElement errorButton;
+
+    @FindBy(xpath = "(//*[@fill=\"currentColor\"])[1]")
+    WebElement crossButtonInUsernameField;
+
+    @FindBy(xpath = "(//*[@fill=\"currentColor\"])[2]")
+    WebElement crossButtonInPasswordField;
+
+    @FindBy(xpath = "//*[@class=\"login_logo\"]")
+    WebElement loginTitle;
+
+    public WebElement getAddButton() {
+        return addButton;
+    }
+
+    public WebElement getDeleteButton() {
+        return deleteButton;
+    }
 
     public LoginPageFactory(WebDriver driver) {
         super(driver);
@@ -58,19 +70,19 @@ public class LoginPageFactory extends BasePage {
     }
 
     public void clickOnCrossInErrorMessage() {
-        driver.findElement(ERROR_BUTTON).click();
+        errorButton.click();
     }
 
-/*    public List<WebElement> getErrorMessages() {
-        return driver.findElements(ERROR_MESSAGE);
-    }*/
+    public List<WebElement> getErrorMessages() {
+        return errorMessages;
+    }
 
     public void clickOnCrossInUsernameField() {
-        driver.findElement(CROSS_BUTTON_IN_USERNAME_FIELD).click();
+        crossButtonInUsernameField.click();
     }
 
     public void clickOnCrossInPasswordField() {
-        driver.findElement(CROSS_BUTTON_IN_PASSWORD_FIELD).click();
+        crossButtonInPasswordField.click();
     }
 
     public String getUsernameText() {
@@ -81,7 +93,7 @@ public class LoginPageFactory extends BasePage {
         return passwordInput.getAttribute("value");
     }
 
-    public String getLoginTitleText() { return driver.findElement(LOGIN_TITLE).getText(); }
+    public String getLoginTitleText() { return loginTitle.getText(); }
 
     public void waitForPageOpened() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

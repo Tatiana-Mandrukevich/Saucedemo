@@ -15,24 +15,51 @@ public class HeaderPage extends BasePage {
         super(driver);
     }
 
+    /**
+     * This is getting text of the app title.
+     * @return text of the app title.
+     */
     public String getAppTitleText() { return driver.findElement(APP_TITLE).getText(); }
 
-    public void clickOnOpenMenuButton() {
+    /**
+     * This is clicking on the open menu button.
+     * @return HeaderPage.
+     */
+    public HeaderPage clickOnOpenMenuButton() {
         driver.findElement(OPEN_MENU_BUTTON).click();
+        return this;
     }
 
+    /**
+     * This is checking if the menu is open.
+     * @return true if the menu is open.
+     */
     public boolean isMenuOpen() {
         return !driver.findElements(INDICATION_THAT_MENU_IS_OPEN).isEmpty();
     }
 
-    public void clickOnCrossOnMenu() {
+    /**
+     * This is clicking on the cross on the menu.
+     * @return HeaderPage.
+     */
+    public HeaderPage clickOnCrossOnMenu() {
         driver.findElement(CROSS_ON_MENU).click();
+        return this;
     }
 
-    public void clickOnCartButton() {
+    /**
+     * This is clicking on the cart button.
+     * @return CartPage.
+     */
+    public CartPage clickOnCartButton() {
         driver.findElement(CART_BUTTON).click();
+        return new CartPage(driver);
     }
 
+    /**
+     * This is getting count of added products.
+     * @return count of added products.
+     */
     public Integer getCountOfAddedProducts() {
         String countOfAddedProductsStr = driver.findElement(COUNT_OF_ADDED_PRODUCTS_ON_CART_BUTTON).getText();
         return Integer.valueOf(countOfAddedProductsStr);

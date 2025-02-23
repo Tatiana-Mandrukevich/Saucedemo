@@ -23,10 +23,13 @@ public class CartTest extends BaseTest {
         loginPage
                 .openPage(LOGIN_PAGE_URL);
         loginPage
-                .waitForPageOpened()
+                .waitForLoginPageOpened()
                 .login(USERNAME, PASSWORD)
+                .waitForProductsPageOpened()
                 .addProductToCart(productName);
-        cartPage.openCartPage(CART_PAGE_URL);
+        cartPage
+                .waitForCartPageOpened()
+                .openCartPage(CART_PAGE_URL);
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }
 
@@ -35,9 +38,13 @@ public class CartTest extends BaseTest {
         loginPage
                 .openPage(LOGIN_PAGE_URL);
         loginPage
+                .waitForLoginPageOpened()
                 .login(USERNAME, PASSWORD)
+                .waitForProductsPageOpened()
                 .addProductsToCart(SAUCE_LABS_BOLT_T_SHIRT, SAUCE_LABS_BACKPACK);
-        cartPage.openPage(CART_PAGE_URL);
+        cartPage
+                .waitForCartPageOpened()
+                .openPage(CART_PAGE_URL);
         Assert.assertEquals(cartPage.getProductQuantity(), 2);
     }
 
@@ -46,10 +53,13 @@ public class CartTest extends BaseTest {
         loginPage
                 .openPage(LOGIN_PAGE_URL);
         loginPage
-                .waitForPageOpened()
+                .waitForLoginPageOpened()
                 .login(USERNAME, PASSWORD)
+                .waitForProductsPageOpened()
                 .addProductToCart(productName);
-        cartPage.openPage(CART_PAGE_URL);
+        cartPage
+                .waitForCartPageOpened()
+                .openPage(CART_PAGE_URL);
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }
 }
