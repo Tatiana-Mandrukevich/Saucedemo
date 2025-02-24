@@ -18,7 +18,7 @@ public class CartTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "products")
+    @Test(description = "Check a product price for any product that has been added to the cart", dataProvider = "products")
     public void checkProductPriceInCartTest(String productName, String price) {
         loginPage
                 .openPage(LOGIN_PAGE_URL);
@@ -33,7 +33,7 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(description = "Check the number of products added to the cart", retryAnalyzer = Retry.class)
     public void checkQuantityTest() {
         loginPage
                 .openPage(LOGIN_PAGE_URL);
@@ -48,7 +48,7 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(cartPage.getProductQuantity(), 2);
     }
 
-    @Test(dataProvider = "products")
+    @Test(description = "Check a product price for any product that has been added to the cart", dataProvider = "products")
     public void addProductToCartTest(String productName, String price){
         loginPage
                 .openPage(LOGIN_PAGE_URL);

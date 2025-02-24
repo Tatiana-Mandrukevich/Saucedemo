@@ -9,9 +9,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import pages.*;
-import waiters.Waiter;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 @Listeners(TestListener.class)
 public class BaseTest implements IConstants, ITestConstants {
@@ -31,7 +30,7 @@ public class BaseTest implements IConstants, ITestConstants {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);//неявное ожидание
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));//неявное ожидание
         initPages();
     }
 

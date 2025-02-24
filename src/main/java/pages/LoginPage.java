@@ -4,11 +4,8 @@ import entity.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import waiters.Waiter;
 
-import java.time.Duration;
 import java.util.List;
 
 public class LoginPage extends BasePage {
@@ -99,7 +96,7 @@ public class LoginPage extends BasePage {
      * @return text from the username field.
      */
     public String getUsernameText() {
-        return driver.findElement(USERNAME_INPUT).getAttribute("value");
+        return driver.findElement(USERNAME_INPUT).getDomAttribute("value");
     }
 
     /**
@@ -107,7 +104,7 @@ public class LoginPage extends BasePage {
      * @return text from the password field.
      */
     public String getPasswordText() {
-        return driver.findElement(PASSWORD_INPUT).getAttribute("value");
+        return driver.findElement(PASSWORD_INPUT).getDomAttribute("value");
     }
 
     /**

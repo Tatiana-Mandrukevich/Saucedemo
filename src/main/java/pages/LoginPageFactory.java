@@ -86,11 +86,11 @@ public class LoginPageFactory extends BasePage {
     }
 
     public String getUsernameText() {
-        return usernameInput.getAttribute("value");
+        return usernameInput.getDomAttribute("value");
     }
 
     public String getPasswordText() {
-        return passwordInput.getAttribute("value");
+        return passwordInput.getDomAttribute("value");
     }
 
     public String getLoginTitleText() { return loginTitle.getText(); }

@@ -2,6 +2,7 @@ package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,12 +41,13 @@ public class ProductsTest extends BaseTest {
                 .login(USERNAME, PASSWORD)
                 .waitForProductsPageOpened();
         List<String> expectedProductNames = new ArrayList<>();
-        expectedProductNames.add(SAUCE_LABS_BACKPACK);
-        expectedProductNames.add(SAUCE_LABS_BIKE_LIGHT);
-        expectedProductNames.add(SAUCE_LABS_BOLT_T_SHIRT);
-        expectedProductNames.add(SAUCE_LABS_FLEECE_JACKET);
-        expectedProductNames.add(SAUCE_LABS_ONESIE);
-        expectedProductNames.add(TEST_ALL_THE_THINGS_T_SHIRT_RED);
+        expectedProductNames.addAll(List.of(
+                SAUCE_LABS_BACKPACK,
+                SAUCE_LABS_BIKE_LIGHT,
+                SAUCE_LABS_BOLT_T_SHIRT,
+                SAUCE_LABS_FLEECE_JACKET,
+                SAUCE_LABS_ONESIE,
+                TEST_ALL_THE_THINGS_T_SHIRT_RED));
         Collections.sort(expectedProductNames);
         Assert.assertEquals(productsPage.getActualProductsNames(), expectedProductNames);
     }
@@ -58,12 +60,14 @@ public class ProductsTest extends BaseTest {
                 .waitForLoginPageOpened()
                 .login(USERNAME, PASSWORD)
                 .waitForProductsPageOpened();
-        Assert.assertEquals(productsPage.getProductDescription(SAUCE_LABS_BACKPACK), SAUCE_LABS_BACKPACK_DESCRIPTION);
-        Assert.assertEquals(productsPage.getProductDescription(SAUCE_LABS_BIKE_LIGHT), SAUCE_LABS_BIKE_LIGHT_DESCRIPTION);
-        Assert.assertEquals(productsPage.getProductDescription(SAUCE_LABS_BOLT_T_SHIRT), SAUCE_LABS_BOLT_T_SHIRT_DESCRIPTION);
-        Assert.assertEquals(productsPage.getProductDescription(SAUCE_LABS_FLEECE_JACKET), SAUCE_LABS_FLEECE_JACKET_DESCRIPTION);
-        Assert.assertEquals(productsPage.getProductDescription(SAUCE_LABS_ONESIE), SAUCE_LABS_ONESIE_DESCRIPTION);
-        Assert.assertEquals(productsPage.getProductDescription(TEST_ALL_THE_THINGS_T_SHIRT_RED), TEST_ALL_THE_THINGS_T_SHIRT_RED_DESCRIPTION);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(productsPage.getProductDescription(SAUCE_LABS_BACKPACK), SAUCE_LABS_BACKPACK_DESCRIPTION);
+        softAssert.assertEquals(productsPage.getProductDescription(SAUCE_LABS_BIKE_LIGHT), SAUCE_LABS_BIKE_LIGHT_DESCRIPTION);
+        softAssert.assertEquals(productsPage.getProductDescription(SAUCE_LABS_BOLT_T_SHIRT), SAUCE_LABS_BOLT_T_SHIRT_DESCRIPTION);
+        softAssert.assertEquals(productsPage.getProductDescription(SAUCE_LABS_FLEECE_JACKET), SAUCE_LABS_FLEECE_JACKET_DESCRIPTION);
+        softAssert.assertEquals(productsPage.getProductDescription(SAUCE_LABS_ONESIE), SAUCE_LABS_ONESIE_DESCRIPTION);
+        softAssert.assertEquals(productsPage.getProductDescription(TEST_ALL_THE_THINGS_T_SHIRT_RED), TEST_ALL_THE_THINGS_T_SHIRT_RED_DESCRIPTION);
+        softAssert.assertAll();
     }
 
     @Test(description = "Check a product price for each product")
@@ -74,12 +78,14 @@ public class ProductsTest extends BaseTest {
                 .waitForLoginPageOpened()
                 .login(USERNAME, PASSWORD)
                 .waitForProductsPageOpened();
-        Assert.assertEquals(productsPage.getProductPrice(SAUCE_LABS_BACKPACK), SAUCE_LABS_BACKPACK_PRICE);
-        Assert.assertEquals(productsPage.getProductPrice(SAUCE_LABS_BIKE_LIGHT), SAUCE_LABS_BIKE_LIGHT_PRICE);
-        Assert.assertEquals(productsPage.getProductPrice(SAUCE_LABS_BOLT_T_SHIRT), SAUCE_LABS_BOLT_T_SHIRT_PRICE);
-        Assert.assertEquals(productsPage.getProductPrice(SAUCE_LABS_FLEECE_JACKET), SAUCE_LABS_FLEECE_JACKET_PRICE);
-        Assert.assertEquals(productsPage.getProductPrice(SAUCE_LABS_ONESIE), SAUCE_LABS_ONESIE_PRICE);
-        Assert.assertEquals(productsPage.getProductPrice(TEST_ALL_THE_THINGS_T_SHIRT_RED), TEST_ALL_THE_THINGS_T_SHIRT_RED_PRICE);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(productsPage.getProductPrice(SAUCE_LABS_BACKPACK), SAUCE_LABS_BACKPACK_PRICE);
+        softAssert.assertEquals(productsPage.getProductPrice(SAUCE_LABS_BIKE_LIGHT), SAUCE_LABS_BIKE_LIGHT_PRICE);
+        softAssert.assertEquals(productsPage.getProductPrice(SAUCE_LABS_BOLT_T_SHIRT), SAUCE_LABS_BOLT_T_SHIRT_PRICE);
+        softAssert.assertEquals(productsPage.getProductPrice(SAUCE_LABS_FLEECE_JACKET), SAUCE_LABS_FLEECE_JACKET_PRICE);
+        softAssert.assertEquals(productsPage.getProductPrice(SAUCE_LABS_ONESIE), SAUCE_LABS_ONESIE_PRICE);
+        softAssert.assertEquals(productsPage.getProductPrice(TEST_ALL_THE_THINGS_T_SHIRT_RED), TEST_ALL_THE_THINGS_T_SHIRT_RED_PRICE);
+        softAssert.assertAll();
     }
 
     @Test(description = "Check that a product picture is displayed for each product")
