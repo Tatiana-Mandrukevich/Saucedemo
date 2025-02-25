@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class Waiter {
-    public void waitForPageOpened(WebDriver driver, By locator, long seconds) {
+    public static void waitForPageOpened(WebDriver driver, By locator, long seconds) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }

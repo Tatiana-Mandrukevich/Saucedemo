@@ -18,38 +18,48 @@ public class CartTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "products")
+    @Test(description = "Check a product price for any product that has been added to the cart", dataProvider = "products")
     public void checkProductPriceInCartTest(String productName, String price) {
         loginPage
                 .openPage(LOGIN_PAGE_URL);
         loginPage
-                .waitForPageOpened()
+                .waitForLoginPageOpened()
                 .login(USERNAME, PASSWORD)
+                .waitForProductsPageOpened()
                 .addProductToCart(productName);
-        cartPage.openCartPage(CART_PAGE_URL);
+        cartPage
+                .waitForCartPageOpened()
+                .openCartPage(CART_PAGE_URL);
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Test(description = "Check the number of products added to the cart", retryAnalyzer = Retry.class)
     public void checkQuantityTest() {
         loginPage
                 .openPage(LOGIN_PAGE_URL);
         loginPage
+                .waitForLoginPageOpened()
                 .login(USERNAME, PASSWORD)
+                .waitForProductsPageOpened()
                 .addProductsToCart(SAUCE_LABS_BOLT_T_SHIRT, SAUCE_LABS_BACKPACK);
-        cartPage.openPage(CART_PAGE_URL);
+        cartPage
+                .waitForCartPageOpened()
+                .openPage(CART_PAGE_URL);
         Assert.assertEquals(cartPage.getProductQuantity(), 2);
     }
 
-    @Test(dataProvider = "products")
+    @Test(description = "Check a product price for any product that has been added to the cart", dataProvider = "products")
     public void addProductToCartTest(String productName, String price){
         loginPage
                 .openPage(LOGIN_PAGE_URL);
         loginPage
-                .waitForPageOpened()
+                .waitForLoginPageOpened()
                 .login(USERNAME, PASSWORD)
+                .waitForProductsPageOpened()
                 .addProductToCart(productName);
-        cartPage.openPage(CART_PAGE_URL);
+        cartPage
+                .waitForCartPageOpened()
+                .openPage(CART_PAGE_URL);
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }
 }
