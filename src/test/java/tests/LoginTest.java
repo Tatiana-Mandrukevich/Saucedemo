@@ -24,11 +24,7 @@ public class LoginTest extends Preconditions {
 
     @Test(description = "This test login on site with empty password")
     public void loginWithEmptyPasswordTest() {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login(userWithEmptyPassword);
+        loginSteps.loginAndWaitForLoginPageOpened(userWithEmptyPassword);
         Assert.assertEquals(loginPage.getErrorMassageText(), EMPTY_FIELD_PASSWORD_ERROR);
     }
 

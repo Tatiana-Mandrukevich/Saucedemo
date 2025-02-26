@@ -9,6 +9,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import pages.*;
+import steps.CartSteps;
+import steps.LoginSteps;
+import steps.ProductsSteps;
 
 import java.time.Duration;
 
@@ -20,6 +23,9 @@ public class BaseTest implements IConstants, ITestConstants {
     ProductsPage productsPage;
     CartPage cartPage;
     LoginPageFactory loginPageFactory;
+    CartSteps cartSteps;
+    LoginSteps loginSteps;
+    ProductsSteps productsSteps;
 
     /**
      * This is the initialization of the test.
@@ -43,6 +49,8 @@ public class BaseTest implements IConstants, ITestConstants {
         productsPage = new ProductsPage(driver);
         cartPage = new CartPage(driver);
         loginPageFactory = new LoginPageFactory(driver);
+        loginSteps = new LoginSteps(driver);
+        productsSteps = new ProductsSteps(driver);
     }
 
     /**

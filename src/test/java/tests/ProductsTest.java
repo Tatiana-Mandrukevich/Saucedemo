@@ -135,13 +135,7 @@ public class ProductsTest extends BaseTest {
 
     @Test(description = "Adding a product to the cart: check that the \"Remove\" button is displayed for the added product")
     public void checkRemoveButtonIsDisplayedForAddedProduct() {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login(USERNAME, PASSWORD)
-                .waitForProductsPageOpened()
-                .addProductToCart(SAUCE_LABS_BIKE_LIGHT);
+        productsSteps.loginAndAddProductToCart(USERNAME, PASSWORD, SAUCE_LABS_BIKE_LIGHT);
         Assert.assertTrue(productsPage.isRemoveButtonDisplayedForProduct(SAUCE_LABS_BIKE_LIGHT));
     }
 }
