@@ -13,8 +13,8 @@ public class LoginSteps {
         loginPage = new LoginPage(driver);
     }
 
-    @Step("Wait for Login page open and login")
-    public LoginSteps loginAndWaitForLoginPageOpened(String username, String password) {
+    @Step("Wait for Login page open and login with invalid data")
+    public LoginSteps loginWithInvalidData(String username, String password) {
         loginPage.openPage(IConstants.LOGIN_PAGE_URL);
         loginPage
                 .waitForLoginPageOpened()
@@ -22,12 +22,39 @@ public class LoginSteps {
         return this;
     }
 
-    @Step("Wait for Login page open and login")
-    public LoginSteps loginAndWaitForLoginPageOpened(User user) {
+    @Step("Wait for Login page open and login with invalid data")
+    public LoginSteps loginWithInvalidData(User user) {
         loginPage.openPage(IConstants.LOGIN_PAGE_URL);
         loginPage
                 .waitForLoginPageOpened()
                 .login(user);
+        return this;
+    }
+
+    @Step("Wait for Login page open, login with valid data and wait for Products page open")
+    public LoginSteps loginWithValidData(String username, String password) {
+        loginPage.openPage(IConstants.LOGIN_PAGE_URL);
+        loginPage
+                .waitForLoginPageOpened()
+                .login(username, password)
+                .waitForProductsPageOpened();
+        return this;
+    }
+
+    @Step("Wait for Login page open, login with valid data and wait for Products page open")
+    public LoginSteps loginWithValidData(User user) {
+        loginPage.openPage(IConstants.LOGIN_PAGE_URL);
+        loginPage
+                .waitForLoginPageOpened()
+                .login(user)
+                .waitForProductsPageOpened();
+        return this;
+    }
+
+    @Step("Wait for Login page open")
+    public LoginSteps openLoginPage() {
+        loginPage.openPage(IConstants.LOGIN_PAGE_URL);
+        loginPage.waitForLoginPageOpened();
         return this;
     }
 }

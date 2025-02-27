@@ -20,46 +20,22 @@ public class CartTest extends BaseTest {
 
     @Test(description = "Check a product price for any product that has been added to the cart", dataProvider = "products")
     public void checkProductPriceInCartTest(String productName, String price) {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login(USERNAME, PASSWORD)
-                .waitForProductsPageOpened()
-                .addProductToCart(productName);
-        cartPage
-                .waitForCartPageOpened()
-                .openCartPage(CART_PAGE_URL);
+        productsSteps.loginAndAddProductToCart(USERNAME, PASSWORD, productName);
+        headerSteps.openCart();
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }
 
     @Test(description = "Check the number of products added to the cart", retryAnalyzer = Retry.class)
     public void checkQuantityTest() {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login(USERNAME, PASSWORD)
-                .waitForProductsPageOpened()
-                .addProductsToCart(SAUCE_LABS_BOLT_T_SHIRT, SAUCE_LABS_BACKPACK);
-        cartPage
-                .waitForCartPageOpened()
-                .openPage(CART_PAGE_URL);
+        productsSteps.loginAndAddProductsToCart(USERNAME, PASSWORD, SAUCE_LABS_BOLT_T_SHIRT, SAUCE_LABS_BACKPACK);
+        headerSteps.openCart();
         Assert.assertEquals(cartPage.getProductQuantity(), 2);
     }
 
     @Test(description = "Check a product price for any product that has been added to the cart", dataProvider = "products")
     public void addProductToCartTest(String productName, String price){
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login(USERNAME, PASSWORD)
-                .waitForProductsPageOpened()
-                .addProductToCart(productName);
-        cartPage
-                .waitForCartPageOpened()
-                .openPage(CART_PAGE_URL);
+        productsSteps.loginAndAddProductToCart(USERNAME, PASSWORD, productName);
+        headerSteps.openCart();
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }
 }
