@@ -13,25 +13,25 @@ public class LoginTest extends Preconditions {
 
     @Test(description = "This test login on site with empty username")
     public void loginWithEmptyUsernameTest() {
-        loginSteps.loginWithInvalidData(userWithEmptyUsername);
+        loginSteps.login(userWithEmptyUsername);
         Assert.assertEquals(loginPage.getErrorMassageText(), EMPTY_FIELD_USERNAME_ERROR);
     }
 
     @Test(description = "This test login on site with empty password")
     public void loginWithEmptyPasswordTest() {
-        loginSteps.loginWithInvalidData(userWithEmptyPassword);
+        loginSteps.login(userWithEmptyPassword);
         Assert.assertEquals(loginPage.getErrorMassageText(), EMPTY_FIELD_PASSWORD_ERROR);
     }
 
     @Test(description = "This test login on site with empty username and password")
     public void loginWithEmptyFieldsTest() {
-        loginSteps.loginWithInvalidData(userWithEmptyFields);
+        loginSteps.login(userWithEmptyFields);
         Assert.assertEquals(loginPage.getErrorMassageText(), EMPTY_FIELD_USERNAME_ERROR);
     }
 
     @Test(description = "This test login on site with incorrect data in fields")
     public void loginWithIncorrectFieldsTest() {
-        loginSteps.loginWithInvalidData(userWithIncorrectFields);
+        loginSteps.login(userWithIncorrectFields);
         Assert.assertEquals(loginPage.getErrorMassageText(), INCORRECT_DATA_IN_FIELDS);
     }
 
@@ -48,30 +48,30 @@ public class LoginTest extends Preconditions {
     @Test(description = "Login on site with correct data in fields")
     public void successLoginTest(@Optional("standard_user") String username,
                                  @Optional("secret_sauce") String password) {
-        loginSteps.loginWithInvalidData(username, password);
+        loginSteps.login(username, password);
         Assert.assertEquals(loginPage.getCurrentUrl(), PRODUCT_PAGE_URL);
     }
 
     @Test(description = "Close error message by clicking on the cross")
     public void closeErrorMessage() {
-        loginSteps.loginWithInvalidData(userWithIncorrectFields);
+        loginSteps.login(userWithIncorrectFields);
         loginPage.clickOnCrossInErrorMessage();
         Assert.assertFalse(loginPage.isErrorMessagesDisplayed());
     }
 
-/*    @Test(description = "Clearing the field username by clicking on the cross")
+    @Test(description = "Clearing the field username by clicking on the cross")
     public void clearUsernameFieldByCross() {
-        loginSteps.loginWithInvalidData(userWithIncorrectFields);
+        loginSteps.login(userWithIncorrectFields);
         loginPage.clickOnCrossInUsernameField();
         Assert.assertEquals(loginPage.getUsernameText(), "");
     }
 
     @Test(description = "Clearing the field password by clicking on the cross")
     public void clearPasswordFieldByCross() {
-       loginSteps.loginWithInvalidData(userWithIncorrectFields);
+       loginSteps.login(userWithIncorrectFields);
         loginPage.clickOnCrossInPasswordField();
         Assert.assertEquals(loginPage.getPasswordText(), "");
-    }*/
+    }
 
     @Test(description = "Check login title")
     public void checkLoginTitle() {

@@ -11,17 +11,19 @@ public class HeaderSteps {
         headerPage = new HeaderPage(driver);
     }
 
-    @Step("Open menu on header and close menu")
+    @Step("Wat for Header page open, open menu on header and close menu")
     public HeaderSteps openAndCloseMenu() {
         headerPage
+                .waitForHeaderPageOpened()
                 .clickOnOpenMenuButton()
                 .clickOnCrossOnMenu();
         return this;
     }
 
-    @Step("Open cart on header and wait for Cart page open")
+    @Step("Wat for Header page open, open cart on header and wait for Cart page open")
     public HeaderSteps openCart() {
         headerPage
+                .waitForHeaderPageOpened()
                 .clickOnCartButton()
                 .waitForCartPageOpened();
         return this;

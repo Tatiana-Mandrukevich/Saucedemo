@@ -1,9 +1,11 @@
 package pages;
 
 import org.openqa.selenium.By;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import waiters.Waiter;
 
+@Log4j2
 public class CartPage extends HeaderPage {
     private static final String PRODUCT_ITEM = "//*[text()='%s']/ancestor::*[@class=\"cart_item\"]";
     private static final String PRODUCT_PRICE = PRODUCT_ITEM + "//*[@class=\"inventory_item_price\"]";
@@ -22,6 +24,7 @@ public class CartPage extends HeaderPage {
      * @return - the CartPage.
      */
     public CartPage openCartPage(String url) {
+        log.info("Open Cart page by URL: {}", url);
         driver.get(url);
         return this;
     }
@@ -32,15 +35,20 @@ public class CartPage extends HeaderPage {
      * @return - the price of the product.
      */
     public String getProductPrice(String productName) {
-        return driver.findElement(By.xpath(String.format(PRODUCT_PRICE, productName))).getText();
+        String productPrice = driver.findElement(By.xpath(String.format(PRODUCT_PRICE, productName))).getText();
+        log.info("Get price for product: {}. Price is: {}", productName, productPrice);
+        return productPrice;
     }
 
     /**
      * This is getting the quantity of products added to the cart.
      * @return - the quantity of the product.
      */
+
     public Integer getProductQuantity() {
-        return driver.findElements(By.xpath(CART_ITEM_CONTAINER)).size();
+        int productQuantity = driver.findElements(By.xpath(CART_ITEM_CONTAINER)).size();
+        log.info("Get product quantity: {}", productQuantity);
+        return productQuantity;
     }
 
     /**
@@ -50,6 +58,7 @@ public class CartPage extends HeaderPage {
      */
     public CartPage removeProductFromCart(String productName) {
         driver.findElement(By.xpath(String.format(REMOVE_BUTTON, productName))).click();
+        log.info("Remove product: {} from cart", productName);
         return this;
     }
 
@@ -59,6 +68,7 @@ public class CartPage extends HeaderPage {
      * @return true if the product is displayed in the cart.
      */
     public boolean isProductDisplayed(String productName) {
+        log.info("Check if product: {} is displayed in the cart", productName);
         return !driver.findElements(By.xpath(String.format(PRODUCT_ITEM, productName))).isEmpty();
     }
 
@@ -68,6 +78,7 @@ public class CartPage extends HeaderPage {
      */
     public CartPage waitForCartPageOpened() {
         Waiter.waitForPageOpened(driver, PAGE_TITLE, 15);
+        log.info("Wait for Cart page to be opened");
         return this;
     }
 }

@@ -20,21 +20,24 @@ public class CartTest extends BaseTest {
 
     @Test(description = "Check a product price for any product that has been added to the cart", dataProvider = "products")
     public void checkProductPriceInCartTest(String productName, String price) {
-        productsSteps.loginAndAddProductToCart(USERNAME, PASSWORD, productName);
+        loginSteps.login(USERNAME, PASSWORD);
+        productsSteps.addProductToCart(productName);
         headerSteps.openCart();
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }
 
     @Test(description = "Check the number of products added to the cart", retryAnalyzer = Retry.class)
     public void checkQuantityTest() {
-        productsSteps.loginAndAddProductsToCart(USERNAME, PASSWORD, SAUCE_LABS_BOLT_T_SHIRT, SAUCE_LABS_BACKPACK);
+        loginSteps.login(USERNAME, PASSWORD);
+        productsSteps.addProductsToCart(SAUCE_LABS_BOLT_T_SHIRT, SAUCE_LABS_BACKPACK);
         headerSteps.openCart();
-        Assert.assertEquals(cartPage.getProductQuantity(), 2);
+        Assert.assertEquals(cartPage.getProductQuantity().intValue(), 2);
     }
 
     @Test(description = "Check a product price for any product that has been added to the cart", dataProvider = "products")
-    public void addProductToCartTest(String productName, String price){
-        productsSteps.loginAndAddProductToCart(USERNAME, PASSWORD, productName);
+    public void addProductToCartTest(String productName, String price) {
+        loginSteps.login(USERNAME, PASSWORD);
+        productsSteps.addProductToCart(productName);
         headerSteps.openCart();
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
     }

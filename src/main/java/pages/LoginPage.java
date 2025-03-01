@@ -1,6 +1,7 @@
 package pages;
 
 import entity.User;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +9,7 @@ import waiters.Waiter;
 
 import java.util.List;
 
+@Log4j2
 public class LoginPage extends BasePage {
     public static final By USERNAME_INPUT = By.id("user-name");
     public static final By PASSWORD_INPUT = By.name("password");
@@ -31,6 +33,7 @@ public class LoginPage extends BasePage {
         driver.findElement(USERNAME_INPUT).sendKeys(user.getUsername());
         driver.findElement(PASSWORD_INPUT).sendKeys(user.getPassword());
         driver.findElement(LOGIN_BUTTON).click();
+        log.info("Login with data: username is {}", user.getUsername());
         return new ProductsPage(driver);
     }
 
@@ -44,6 +47,7 @@ public class LoginPage extends BasePage {
         driver.findElement(USERNAME_INPUT).sendKeys(username);
         driver.findElement(PASSWORD_INPUT).sendKeys(password);
         driver.findElement(LOGIN_BUTTON).click();
+        log.info("Login with data: username is {}", username);
         return new ProductsPage(driver);
     }
 
@@ -52,7 +56,9 @@ public class LoginPage extends BasePage {
      * @return error text.
      */
     public String getErrorMassageText() {
-        return driver.findElement(ERROR_MESSAGE).getText();
+        String errorMessage = driver.findElement(ERROR_MESSAGE).getText();
+        log.info("Text of error message: {}", errorMessage);
+        return errorMessage;
     }
 
     /**
@@ -96,7 +102,9 @@ public class LoginPage extends BasePage {
      * @return text from the username field.
      */
     public String getUsernameText() {
-        return driver.findElement(USERNAME_INPUT).getDomAttribute("value");
+        String usernameText = driver.findElement(USERNAME_INPUT).getAttribute("value");
+        log.info("Get username from the username field: {}", usernameText);
+        return usernameText;
     }
 
     /**
@@ -111,7 +119,11 @@ public class LoginPage extends BasePage {
      * This is getting the text from the login title.
      * @return text from the login title.
      */
-    public String getLoginTitleText() { return driver.findElement(LOGIN_TITLE).getText(); }
+    public String getLoginTitleText() {
+        String loginTitle = driver.findElement(LOGIN_TITLE).getText();
+        log.info("Get login title: {}", loginTitle);
+        return loginTitle;
+    }
 
     /**
      * This is waiting for the login page to be opened.
@@ -119,6 +131,7 @@ public class LoginPage extends BasePage {
      */
     public LoginPage waitForLoginPageOpened() {
         Waiter.waitForPageOpened(driver, LOGIN_BUTTON, 15);
+        log.info("Wait for Login page to be opened");
         return this;
     }
 }
