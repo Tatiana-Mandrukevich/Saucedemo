@@ -1,8 +1,11 @@
 package pages;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import waiters.Waiter;
 
+@Log4j2
 public class HeaderPage extends BasePage {
     public static final By APP_TITLE = By.xpath("//*[@class=\"app_logo\"]");
     public static final By OPEN_MENU_BUTTON = By.id("react-burger-menu-btn");
@@ -19,7 +22,11 @@ public class HeaderPage extends BasePage {
      * This is getting text of the app title.
      * @return text of the app title.
      */
-    public String getAppTitleText() { return driver.findElement(APP_TITLE).getText(); }
+    public String getAppTitleText() {
+        String appTitle = driver.findElement(APP_TITLE).getText();
+        log.info("Get app title: {}", appTitle);
+        return appTitle;
+    }
 
     /**
      * This is clicking on the open menu button.
@@ -60,8 +67,19 @@ public class HeaderPage extends BasePage {
      * This is getting count of added products.
      * @return count of added products.
      */
-    public Integer getCountOfAddedProducts() {
+    public int getCountOfAddedProducts() {
         String countOfAddedProductsStr = driver.findElement(COUNT_OF_ADDED_PRODUCTS_ON_CART_BUTTON).getText();
+        log.info("Get count of added products: {}", countOfAddedProductsStr);
         return Integer.valueOf(countOfAddedProductsStr);
+    }
+
+    /**
+     * This is waiting for the Header page to be opened.
+     * @return HeaderPage.
+     */
+    public HeaderPage waitForHeaderPageOpened() {
+        Waiter.waitForPageOpened(driver, CART_BUTTON, 15);
+        log.info("Wait for Header page to be opened");
+        return this;
     }
 }

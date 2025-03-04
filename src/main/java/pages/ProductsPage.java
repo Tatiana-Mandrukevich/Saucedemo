@@ -1,5 +1,6 @@
 package pages;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Log4j2
 public class ProductsPage extends HeaderPage {
     public static final By PAGE_TITLE = By.xpath("//*[@class=\"title\"]");
     public static final By PRODUCTS = By.xpath("//*[@class=\"inventory_item\"]");
@@ -29,14 +31,20 @@ public class ProductsPage extends HeaderPage {
      * This is getting the page title text.
      * @return the page title text.
      */
-    public String getPageTitleText() { return driver.findElement(PAGE_TITLE).getText(); }
+    public String getPageTitleText() {
+        String pageTitle = driver.findElement(PAGE_TITLE).getText();
+        log.info("Get page title: {}", pageTitle);
+        return pageTitle;
+    }
 
     /**
      * This is getting the count of products on the page.
      * @return the count of products on the page.
      */
     public int getProductsCount() {
-        return driver.findElements(PRODUCTS).size();
+        int productsCount = driver.findElements(PRODUCTS).size();
+        log.info("Get products count on Products page: {}", productsCount);
+        return productsCount;
     }
 
     /**
@@ -50,6 +58,7 @@ public class ProductsPage extends HeaderPage {
             actualProductsNames.add(element);
         }
         Collections.sort(actualProductsNames);
+        log.info("Get products names on Products page: {}", actualProductsNames);
         return actualProductsNames;
     }
 
@@ -59,7 +68,9 @@ public class ProductsPage extends HeaderPage {
      * @return the description of the product.
      */
     public String getProductDescription(String productName) {
-        return driver.findElement(By.xpath(String.format(PRODUCT_DESCRIPTION, productName))).getText();
+        String productDescription = driver.findElement(By.xpath(String.format(PRODUCT_DESCRIPTION, productName))).getText();
+        log.info("Get description for product: {}. Description is: {}", productName, productDescription);
+        return productDescription;
     }
 
     /**
@@ -68,7 +79,9 @@ public class ProductsPage extends HeaderPage {
      * @return the price of the product.
      */
     public String getProductPrice(String productName) {
-        return driver.findElement(By.xpath(String.format(PRODUCT_PRICE, productName))).getText();
+        String productPrice = driver.findElement(By.xpath(String.format(PRODUCT_PRICE, productName))).getText();
+        log.info("Get price for product: {}. Price is: {}", productName, productPrice);
+        return productPrice;
     }
 
     /**
@@ -76,7 +89,9 @@ public class ProductsPage extends HeaderPage {
      * @return the count of product pictures on the page.
      */
     public int getProductPicturesCount() {
-        return driver.findElements(PRODUCT_PICTURE).size();
+        int productPicturesCount = driver.findElements(PRODUCT_PICTURE).size();
+        log.info("Get product pictures count on Products page: {}", productPicturesCount);
+        return productPicturesCount;
     }
 
     /**
@@ -84,7 +99,9 @@ public class ProductsPage extends HeaderPage {
      * @return the count of Add to cart buttons on the page.
      */
     public int getAddToCartButtonsCount() {
-        return driver.findElements(ADD_TO_CART_BUTTONS).size();
+        int addToCartButtonsCount = driver.findElements(ADD_TO_CART_BUTTONS).size();
+        log.info("Get Add to cart buttons count on Products page: {}", addToCartButtonsCount);
+        return addToCartButtonsCount;
     }
 
     /**
@@ -94,6 +111,7 @@ public class ProductsPage extends HeaderPage {
      */
     public ProductsPage addProductToCart(String productName) {
         driver.findElement(By.xpath(String.format(ADD_PRODUCT_TO_CART_BUTTON, productName))).click();
+        log.info("Add product: {} to cart", productName);
         return this;
     }
 
@@ -104,6 +122,7 @@ public class ProductsPage extends HeaderPage {
      */
     public boolean isAddToCartButtonDisplayedForProduct(String productName) {
         List<WebElement> addToCartButtons = driver.findElements(By.xpath(String.format(ADD_PRODUCT_TO_CART_BUTTON, productName)));
+        log.info("Check if Add to cart button is displayed for product: {}", productName);
         return !addToCartButtons.isEmpty();
     }
 
@@ -114,6 +133,7 @@ public class ProductsPage extends HeaderPage {
      */
     public boolean isRemoveButtonDisplayedForProduct(String productName) {
         List<WebElement> removeButtons = driver.findElements(By.xpath(String.format(REMOVE_PRODUCT_FROM_CART_BUTTON, productName)));
+        log.info("Check if Remove button is displayed for product: {}", productName);
         return !removeButtons.isEmpty();
     }
 
@@ -125,6 +145,7 @@ public class ProductsPage extends HeaderPage {
     public ProductsPage addProductsToCart(String... productNames) {
         for (String productName : productNames) {
             driver.findElement(By.xpath(String.format(ADD_PRODUCT_TO_CART_BUTTON, productName))).click();
+            log.info("Add product: {} to cart", productName);
         }
         return this;
     }
@@ -135,6 +156,7 @@ public class ProductsPage extends HeaderPage {
      */
     public ProductsPage waitForProductsPageOpened() {
         Waiter.waitForPageOpened(driver, PRODUCT_PICTURE, 15);
+        log.info("Wait for Products page to be opened");
         return this;
     }
 }

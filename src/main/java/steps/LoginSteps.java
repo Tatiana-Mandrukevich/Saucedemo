@@ -14,7 +14,7 @@ public class LoginSteps {
     }
 
     @Step("Wait for Login page open and login")
-    public LoginSteps loginAndWaitForLoginPageOpened(String username, String password) {
+    public LoginSteps login(String username, String password) {
         loginPage.openPage(IConstants.LOGIN_PAGE_URL);
         loginPage
                 .waitForLoginPageOpened()
@@ -23,11 +23,18 @@ public class LoginSteps {
     }
 
     @Step("Wait for Login page open and login")
-    public LoginSteps loginAndWaitForLoginPageOpened(User user) {
+    public LoginSteps login(User user) {
         loginPage.openPage(IConstants.LOGIN_PAGE_URL);
         loginPage
                 .waitForLoginPageOpened()
                 .login(user);
+        return this;
+    }
+
+    @Step("Wait for Login page open")
+    public LoginSteps openLoginPage() {
+        loginPage.openPage(IConstants.LOGIN_PAGE_URL);
+        loginPage.waitForLoginPageOpened();
         return this;
     }
 }

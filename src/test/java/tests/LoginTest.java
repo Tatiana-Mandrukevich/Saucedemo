@@ -1,6 +1,5 @@
 package tests;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Optional;
@@ -14,37 +13,25 @@ public class LoginTest extends Preconditions {
 
     @Test(description = "This test login on site with empty username")
     public void loginWithEmptyUsernameTest() {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login(userWithEmptyUsername);
+        loginSteps.login(userWithEmptyUsername);
         Assert.assertEquals(loginPage.getErrorMassageText(), EMPTY_FIELD_USERNAME_ERROR);
     }
 
     @Test(description = "This test login on site with empty password")
     public void loginWithEmptyPasswordTest() {
-        loginSteps.loginAndWaitForLoginPageOpened(userWithEmptyPassword);
+        loginSteps.login(userWithEmptyPassword);
         Assert.assertEquals(loginPage.getErrorMassageText(), EMPTY_FIELD_PASSWORD_ERROR);
     }
 
     @Test(description = "This test login on site with empty username and password")
     public void loginWithEmptyFieldsTest() {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login(userWithEmptyFields);
+        loginSteps.login(userWithEmptyFields);
         Assert.assertEquals(loginPage.getErrorMassageText(), EMPTY_FIELD_USERNAME_ERROR);
     }
 
     @Test(description = "This test login on site with incorrect data in fields")
     public void loginWithIncorrectFieldsTest() {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login(userWithIncorrectFields);
+        loginSteps.login(userWithIncorrectFields);
         Assert.assertEquals(loginPage.getErrorMassageText(), INCORRECT_DATA_IN_FIELDS);
     }
 
@@ -59,63 +46,40 @@ public class LoginTest extends Preconditions {
 
     @Parameters({"username", "password"})
     @Test(description = "Login on site with correct data in fields")
-    public void successLoginTest(@Optional("standard_user") String user,
-                                 @Optional("secret_sauce") String pass) {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login(user, pass)
-                .waitForProductsPageOpened();
+    public void successLoginTest(@Optional("standard_user") String username,
+                                 @Optional("secret_sauce") String password) {
+        loginSteps.login(username, password);
         Assert.assertEquals(loginPage.getCurrentUrl(), PRODUCT_PAGE_URL);
     }
 
     @Test(description = "Close error message by clicking on the cross")
     public void closeErrorMessage() {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login("efwefwe", "efwfwe");
-        loginPage
-                .clickOnCrossInErrorMessage();
+        loginSteps.login(userWithIncorrectFields);
+        loginPage.clickOnCrossInErrorMessage();
         Assert.assertFalse(loginPage.isErrorMessagesDisplayed());
     }
 
-/*    @Test(description = "Clearing the field username by clicking on the cross")
+    @Test(description = "Clearing the field username by clicking on the cross")
     public void clearUsernameFieldByCross() {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login("efwefwe", "efwfwe");
-        loginPage
-                .clickOnCrossInUsernameField();
+        loginSteps.login(userWithIncorrectFields);
+        loginPage.clickOnCrossInUsernameField();
         Assert.assertEquals(loginPage.getUsernameText(), "");
     }
 
     @Test(description = "Clearing the field password by clicking on the cross")
     public void clearPasswordFieldByCross() {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened()
-                .login("efwefwe", "efwfwe");
-        loginPage
-                .clickOnCrossInPasswordField();
+       loginSteps.login(userWithIncorrectFields);
+        loginPage.clickOnCrossInPasswordField();
         Assert.assertEquals(loginPage.getPasswordText(), "");
-    }*/
+    }
 
     @Test(description = "Check login title")
     public void checkLoginTitle() {
-        loginPage
-                .openPage(LOGIN_PAGE_URL);
-        loginPage
-                .waitForLoginPageOpened();
+        loginSteps.openLoginPage();
         Assert.assertEquals(loginPage.getLoginTitleText(), "Swag Labs");
     }
 
-/*    @Test
+/*    @Test(description = "Not for Saucedemo")
     public void loginWithoutPageFactory() {
         driver.get("https://the-internet.herokuapp.com/add_remove_elements/");
         WebElement addButton = driver.findElement(By.xpath("//button[contains(.,'Add')]"));
@@ -127,7 +91,7 @@ public class LoginTest extends Preconditions {
         deleteButton.click();
     }*/
 
-    @Test
+    @Test(description = "Not for Saucedemo")
     public void loginWithPageFactory() {
         driver.get("https://the-internet.herokuapp.com/add_remove_elements/");
         WebElement addButton = loginPageFactory.getAddButton();
