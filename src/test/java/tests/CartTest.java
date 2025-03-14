@@ -20,7 +20,8 @@ public class CartTest extends BaseTest {
 
     @Test(description = "Check a product price for any product that has been added to the cart", dataProvider = "products")
     public void checkProductPriceInCartTest(String productName, String price) {
-        loginSteps.login(USERNAME, PASSWORD);
+        loginSteps.login(System.getenv().getOrDefault("username", PropertyReader.getProperty("username")),
+                System.getenv().getOrDefault("password", PropertyReader.getProperty("password")));
         productsSteps.addProductToCart(productName);
         headerSteps.openCart();
         Assert.assertEquals(cartPage.getProductPrice(productName), price);
