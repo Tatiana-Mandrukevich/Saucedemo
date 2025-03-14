@@ -29,7 +29,7 @@ public class CartTest extends BaseTest {
 
     @Test(description = "Check the number of products added to the cart", retryAnalyzer = Retry.class)
     public void checkQuantityTest() {
-        loginSteps.login(USERNAME, PASSWORD);
+        loginSteps.login(System.getenv("username"), System.getenv("password"));
         productsSteps.addProductsToCart(SAUCE_LABS_BOLT_T_SHIRT, SAUCE_LABS_BACKPACK);
         headerSteps.openCart();
         Assert.assertEquals(cartPage.getProductQuantity().intValue(), 2);
