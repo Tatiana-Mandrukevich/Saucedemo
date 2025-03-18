@@ -10,6 +10,7 @@ pipeline {
     }
     parameters {
         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
+        string(name: 'username', defaultValue: 'standard_user', description: '')
     }
 
    stages {
@@ -19,7 +20,7 @@ pipeline {
             git branch: "${params.BRANCH}", url: 'https://github.com/Tatiana-Mandrukevich/Saucedemo.git'
 
             // Run Maven on a Unix agent.
-             sh "mvn clean -Dtest=LoginTest test"
+             sh "mvn clean -Dtest=LoginTest -Dusername={params.username} test"
 
             // To run Maven on a Windows agent, use
 //            bat "mvn clean -Dtest=LoginTest test"
