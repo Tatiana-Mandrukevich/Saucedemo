@@ -3,7 +3,7 @@ pipeline {
 
    tools {
       maven "M3"
-      allure "Allure"
+      allure "allure"
    }
     triggers {
         cron('0 8 * * *')
