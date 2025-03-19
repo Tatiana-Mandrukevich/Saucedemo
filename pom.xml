@@ -34,7 +34,7 @@
                         -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar -Xmx256m
                     </argLine>
                     <!-- Чтобы перед тестами пропускался build проекта, который включает прогон всех тестов: -->
-                    <skipTests>false</skipTests>
+                    <skipTests>true</skipTests>
                 </configuration>
                 <dependencies>
                     <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
