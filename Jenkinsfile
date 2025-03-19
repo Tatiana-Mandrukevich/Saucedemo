@@ -16,7 +16,7 @@ pipeline {
       stage('Testing') {
          steps {
             git branch: "${params.BRANCH}", url: 'https://github.com/Tatiana-Mandrukevich/Saucedemo.git'
-            sh "mvn clean -Dtest=LoginTest -Dusername={params.username} test"
+            sh "mvn clean -Dtest=ProductsTest -Dusername={params.username} test"
          }
 
          post {
