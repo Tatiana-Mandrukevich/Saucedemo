@@ -3,6 +3,7 @@ pipeline {
 
    tools {
       maven "M3"
+      allure "Allure"
    }
     triggers {
         cron('0 8 * * *')
@@ -13,19 +14,6 @@ pipeline {
     }
 
    stages {
-      stage('Install Allure') {
-         steps {
-            script {
-                def allureHome = "${WORKSPACE}/allure-2.13.8"
-                sh """
-                    curl -o allure-commandline.tgz -L https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.13.8/allure-commandline-2.13.8.tgz
-                    tar -zxvf allure-commandline.tgz -C "${WORKSPACE}"
-                    chmod +x ${allureHome}/bin/allure
-                """
-                env.PATH = "${allureHome}/bin:${env.PATH}"
-            }
-         }
-      }
       stage('Testing') {
          steps {
             git branch: "${params.BRANCH}", url: 'https://github.com/Tatiana-Mandrukevich/Saucedemo.git'
