@@ -34,7 +34,7 @@
                         -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar -Xmx256m
                     </argLine>
                     <!-- Чтобы перед тестами пропускался build проекта, который включает прогон всех тестов: -->
-                    <skipTests>true</skipTests>
+                    <skipTests>false</skipTests>
                 </configuration>
                 <dependencies>
                     <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
@@ -123,8 +123,13 @@
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>${log4j-core.version}</version> <!-- Убедитесь, что версия актуальна -->
+            <version>${log4j-core.version}</version>
         </dependency>
     </dependencies>
 </project>
