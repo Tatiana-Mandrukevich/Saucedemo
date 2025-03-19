@@ -3,7 +3,6 @@ pipeline {
 
    tools {
       maven "M3"
-      allure "allure"
    }
     triggers {
         cron('0 8 * * *')
@@ -25,11 +24,7 @@ pipeline {
                junit '**/target/surefire-reports/TEST-*.xml'
                allure([
                    reportBuildPolicy: 'ALWAYS',
-                   results: [[path: 'target/allure-results']],
-                   includeProperties: false,
-                   jdk: '',
-                   properties: [],
-                   report: true
+                   results: [[path: 'target/allure-results']]
                ])
             }
          }
