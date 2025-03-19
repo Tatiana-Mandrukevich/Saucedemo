@@ -24,11 +24,12 @@ pipeline {
             always {
                junit '**/target/surefire-reports/TEST-*.xml'
                allure([
+                   reportBuildPolicy: 'ALWAYS',
+                   results: [[path: 'target/allure-results']],
                    includeProperties: false,
                    jdk: '',
                    properties: [],
-                   reportBuildPolicy: 'ALWAYS',
-                   results: [[path: 'target/allure-results']]
+                   report: true
                ])
             }
          }
