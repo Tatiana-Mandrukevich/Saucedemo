@@ -13,6 +13,13 @@ pipeline {
     }
 
    stages {
+      stage('Install Allure') {
+         steps {
+            sh 'curl -o allure-commandline.tgz -L https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.13.8/allure-commandline-2.13.8.tgz'
+            sh 'tar -zxvf allure-commandline.tgz -C /opt/'
+            sh 'ln -s /opt/allure-2.13.8/bin/allure /usr/bin/allure'
+         }
+      }
       stage('Testing') {
          steps {
             git branch: "${params.BRANCH}", url: 'https://github.com/Tatiana-Mandrukevich/Saucedemo.git'
